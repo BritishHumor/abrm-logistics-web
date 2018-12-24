@@ -96,6 +96,15 @@ export default {
     })
   },
 
+  getSingleDelivery (id, context) {
+    var headers = {
+      'Authorization': 'Bearer ' + sessionStorage.getItem('token')
+    }
+    axios.get(window.serverUrl + 'deliveries/' + id, { headers: headers }).then((data) => {
+      context.delivery = data.data
+    })
+  },
+
   getAllDeliveries (context) {
     var headers = {
       'Authorization': 'Bearer ' + sessionStorage.getItem('token')
@@ -110,8 +119,8 @@ export default {
       'Authorization': 'Bearer ' + sessionStorage.getItem('token')
     }
     axios.post(window.serverUrl + 'deliveries', params, { headers: headers }).then((data) => {
-      context.resetForm()
-      this.getAllDeliveries(context)
+      context.closeModal()
+      window.$router.push({ path: '/delivery?delivery=' + data.data.data.id })
     })
   },
 
@@ -120,8 +129,11 @@ export default {
       'Authorization': 'Bearer ' + sessionStorage.getItem('token')
     }
     axios.put(window.serverUrl + 'deliveries/' + id, params, { headers: headers }).then((data) => {
-      context.resetForm()
-      this.getAllDeliveries(context)
+      if (params.status >= 5) {
+        window.history.go()
+      } else {
+        context.refreshDeliveries()
+      }
     })
   },
 

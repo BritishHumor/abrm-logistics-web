@@ -9,7 +9,7 @@ import Toasted from 'vue-toasted'
 
 import 'bootstrap'
 
-window.serverUrl = 'http://abrm-mc.liamholmes.co.uk/api-abrm-logistics/public/api/'
+window.serverUrl = 'https://abrm-mc.liamholmes.co.uk/api-abrm-logistics/public/api/'
 
 Vue.use(Toasted, {
   theme: 'primary',
@@ -29,7 +29,7 @@ window.$ = window.jQuery = require('jquery')
 require('./assets/fontawesome/css/all.css')
 require('./assets/fontawesome/js/all.js')
 
-require('./assets/css/bootstrapSuperhero.min.css')
+require('./assets/css/themes/bootstrapSuperhero.min.css')
 
 window.$toasted = Vue.toasted
 

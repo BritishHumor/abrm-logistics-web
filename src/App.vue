@@ -29,13 +29,14 @@
         <!-- <div class="sidenav-spacer">Deliveries</div> -->
         <a  href="/deliveries" v-on:click.prevent="goToPage('/deliveries')"><span class="icon"><i class="fal fa-truck-container"></i></span>Deliveries</a>
         <div class="sidenav-spacer">Data</div>
-        <a  href="/deliveries" v-on:click.prevent="goToPage('/deliveries')"><span class="icon"><i class="fal fa-box"></i></span>Cargo Types</a>
+        <a  href="/cargos" v-on:click.prevent="goToPage('/cargos')"><span class="icon"><i class="fal fa-box"></i></span>Cargo Types</a>
         <a  href="/countries" v-on:click.prevent="goToPage('/countries')"><span class="icon"><i class="fal fa-flag"></i></span>Countries</a>
         <a  href="/cities" v-on:click.prevent="goToPage('/cities')"><span class="icon"><i class="fal fa-city"></i></span>Cities</a>
         <a  href="/companies" v-on:click.prevent="goToPage('/companies')"><span class="icon"><i class="fal fa-building"></i></span>Companies</a>
         <div class="sidenav-spacer">Settings</div>
         <a  href="/profile" v-on:click.prevent="goToPage('/profile')"><span class="icon"><i class="fal fa-user-circle"></i></span>Profile</a>
         <a  href="/settings" v-on:click.prevent="goToPage('/settings')"><span class="icon"><i class="fal fa-cogs"></i></span>App Settings</a>
+        <a  href="#" v-on:click.prevent="logout()"><span class="icon"><i class="fal fa-sign-out-alt"></i></span>Logout</a>
         <div class="sidenav-bottom">
           <span class="text-muted">&copy; ABRM Logistics {{curYear}}</span>
         </div>
@@ -80,8 +81,13 @@ export default {
         this.navOpen = !this.navOpen
       }
     },
+    logout () {
+      sessionStorage.removeItem('loggedIn')
+      window.history.go()
+    },
     goToPage (url) {
       window.$router.push({ path: url })
+      this.toggleNav()
     }
   },
   beforeCreate () {
@@ -227,9 +233,11 @@ export default {
   -webkit-app-region: drag;
 }
 .appBody {
-  height: 95vh
+  height: 95vh;
+  overflow-y: auto
 }
 html {
   overflow: hidden;
+  background-color: var(--gray-dark);
 }
 </style>

@@ -1,8 +1,8 @@
 <template>
-  <div class="container-fluid">
+  <div class="container">
     <div class="row">
 
-      <div class="col-6">
+      <div class="col-12" v-if="!newUserPanel">
         <div class="">
           <div class="card-header">Login</div>
           <div class="card-body">
@@ -23,11 +23,17 @@
               <button v-on:click.prevent="login()" :disabled="!(loginCred.email.length > 0 && loginCred.password.length > 0)" type="button" class="btn btn-primary">Login</button>
             </form>
           </div>
+          <div class="">
+            Don't have an account? <a href="#" @click="newUserPanel = !newUserPanel">click here</a>
+          </div>
         </div>
       </div>
 
-      <div class="col-6">
+      <div class="col-12" v-if="newUserPanel">
         <div class="">
+          <div class="">
+            <a href="#" @click="newUserPanel = !newUserPanel"><i class="fal fa-long-arrow-left"></i></a> Go back to Login
+          </div>
           <div class="card-header">New Account</div>
           <div class="card-body">
             <form>
@@ -45,13 +51,13 @@
                 <small id="playerIdHelp" class="form-text text-muted">This can either be your SteamID or your TruckersMP ID.</small>
               </div>
               <div class="form-group">
-                <label for="email">Email Address *</label>
-                <input v-model="newCred.email" type="email" class="form-control" id="email" aria-describedby="emailHelp" placeholder="Enter Email">
-                <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
-                <label for="password">Password</label>
-                <input v-model="newCred.password" type="password" class="form-control" id="password" placeholder="Password">
-                <label for="passwordConfirm">Confirm Password</label>
-                <input v-model="newCred.passwordConfirm" type="password" class="form-control" id="passwordConfirm" placeholder="Confirm Password">
+                <label for="emailNew">Email Address *</label>
+                <input v-model="newCred.email" type="email" class="form-control" id="emailNew" aria-describedby="emailNewHelp" placeholder="Enter Email">
+                <small id="emailNewHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+                <label for="passwordNew">Password</label>
+                <input v-model="newCred.password" type="password" class="form-control" id="passwordNew" placeholder="Password">
+                <label for="passwordNewConfirm">Confirm Password</label>
+                <input v-model="newCred.passwordConfirm" type="password" class="form-control" id="passwordNewConfirm" placeholder="Confirm Password">
               </div>
               <button :disabled="validNewUser" v-on:click.prevent="newUser()" type="button" class="btn btn-primary">Create Account</button>
             </form>
@@ -69,6 +75,7 @@ export default {
   name: 'home-page',
   data () {
     return {
+      newUserPanel: false,
       loginCred: {
         email: '',
         password: '',
