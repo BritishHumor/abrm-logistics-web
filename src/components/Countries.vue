@@ -70,9 +70,6 @@ export default {
 }
 </script>
 
-<style scoped>
-.card-body {
-  height: 70vh;
-  overflow-y: auto
-}
+<style>
+
 </style>

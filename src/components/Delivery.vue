@@ -37,7 +37,7 @@
             <strong>{{delivery.origin_company.name}}</strong> {{delivery.origin_city.name}} ({{delivery.origin_country.iso_code}}) - <strong>{{delivery.destination_company.name}}</strong> {{delivery.destination_city.name}} ({{delivery.destination_country.iso_code}})
           </span>
         </div>
-        <div class="card-body">
+        <div v-if="delivery.status < 6" class="card-body">
           <div class="progress bg-light">
             <div class="progress-bar" role="progressbar" :style="'width:' + delivery.status / 5 * 100  + '%;'" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"><span style="z-index: 1">{{deliveryStatus(delivery.status)}}</span></div>
             <div :style=" ( (delivery.status >= 0) ? 'background-color: var(--primary);' : 'background-color: var(--gray);' ) + ' position:absolute; width: 25px; height: 25px; border-radius: 100%; margin-left: -12.5px; margin-top: -5px'"></div>
@@ -51,7 +51,7 @@
           <button v-if="delivery.status < 4" @click="progressDelivery(delivery.id, delivery.status)" class="btn btn-primary" style="float: right">Progress Delivery</button>
           <button v-if="delivery.status === 4" data-toggle="modal" :data-target="'#completeDeliveryModal-' + delivery.id" class="btn btn-success" style="float: right">Complete Delivery</button>
           <button v-if="delivery.status === 5" @click="exportDelivery(delivery.id)" class="btn btn-info" style="float: right">Export Delivery PDF</button>
-          <button v-if=" delivery.status < 5" data-toggle="modal" :data-target="'#cancelJob-' + delivery.id" class="btn btn-danger" style="float: left">Cancel Delivery</button> &nbsp;
+          <button v-if=" delivery.status < 5" data-toggle="modal" :data-target="'#cancelDeliveryModal-' + delivery.id" class="btn btn-danger" style="float: left">Cancel Delivery</button> &nbsp;
           <button v-if="delivery.status > 0 && delivery.status < 5" @click="deprogressDelivery(delivery.id, delivery.status)" class="btn btn-light" style="float: left; margin-left: 5px">Revert Progress Delivery</button>
           <br><br>
           <div v-if="delivery.status < 5">
@@ -76,7 +76,8 @@
                 </tr>
               </tbody>
             </table>
-            <img src="https://via.placeholder.com/2000x800?text=[Placeholder]%20ETS2Map%20Tracker" width="100%">
+            <!-- <img src="https://via.placeholder.com/2000x800?text=[Placeholder]%20ETS2Map%20Tracker" width="100%"> -->
+            <iframe class="ets2map" src="https://ets2map.com/"></iframe>
           </div>
           <div v-else>
             <br>
@@ -125,19 +126,24 @@
             </table>
           </div>
         </div>
+        <div v-else class="card-body" style="text-align: center">
+          <h2 style="color: red;">Delivery Canceled</h2>
+          <p>{{deliveryStatus(delivery.status)}}</p><br>
+          <button @click="goToPage('/deliveries')" class="btn btn-primary btn-lg">Return to deliveries Page</button>
+        </div>
       </div>
     </div>
     <complete-delivery-modal :delivery="delivery" />
-    <cancel-delivery-modal />
+    <cancel-delivery-modal :delivery="delivery" />
   </div>
 </template>
 
 <script>
 import api from '../api'
-// import cancelDeliveryModal from './modals/CancelDeliveryModal'
+import cancelDeliveryModal from './modals/CancelDeliveryModal'
 import completeDeliveryModal from './modals/CompleteDeliveryModal'
 export default {
-  components: { completeDeliveryModal },
+  components: { completeDeliveryModal, cancelDeliveryModal },
   data () {
     return {
       deliveryId: '',
@@ -151,6 +157,9 @@ export default {
     }
   },
   methods: {
+    goToPage (url) {
+      window.$router.push({ path: url })
+    },
     deliveryStatus (status) {
       switch (status) {
         case 0:
@@ -204,5 +213,9 @@ export default {
 </script>
 
 <style>
-
+.ets2map {
+  border: 0;
+  width: 100%;
+  height: 640px
+}
 </style>

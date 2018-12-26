@@ -25,6 +25,7 @@
                     <th>Profit</th>
                     <th>Time Taken</th>
                     <th>Status</th>
+                    <th></th>
                   </tr>
                 </thead>
                 <tbody>
@@ -33,6 +34,7 @@
                     <td>{{( ( delivery.net_profit === null ) ? '' : '€ ' + delivery.net_profit )}}</td>
                     <td>{{( (delivery.time_taken_in_game) ? deliveryTime(delivery.time_taken_in_game) : '' )}}</td>
                     <td><span :class="'badge ' + deliveryStatusClass(delivery.status)">{{deliveryStatus(delivery.status)}}</span></td>
+                    <td><btn @click="goToPage('/delivery?delivery=' + delivery.id)" class="btn btn-sm btn-primary">More Details</btn></td>
                   </tr>
                 </tbody>
               </table>
@@ -80,6 +82,9 @@ export default {
     }
   },
   methods: {
+    goToPage (url) {
+      window.$router.push({ path: url })
+    },
     deliveryTime (time) {
       var hours = Math.floor(time / 60)
       if (time >= 60) {

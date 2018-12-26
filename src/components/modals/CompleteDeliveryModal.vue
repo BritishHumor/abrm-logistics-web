@@ -10,7 +10,7 @@
         </div>
         <div class="modal-body">
           <div class="form-group">
-            
+
             <label for="actualProfit">Actual Profit</label>
             <div class="input-group">
               <div class="input-group-prepend">

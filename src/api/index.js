@@ -61,6 +61,19 @@ export default {
     })
   },
 
+  getAllDrivers (context) {
+    var headers = {
+      'Authorization': 'Bearer ' + sessionStorage.getItem('token')
+    }
+    axios.get(window.serverUrl + 'drivers', { headers: headers }).then((data) => {
+      if (data.data) {
+        context.drivers = data.data
+      }
+    }).catch((err) => {
+      if (err) throw err
+    })
+  },
+
   exportDeliveryPdf (id, context) {
     var pdfWin = window.open()
     var headers = {

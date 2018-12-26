@@ -52,7 +52,7 @@
     <div class="row">
       <div class="col-12">
         <div class="">
-          <div class="card-header"><strong>Active Deliveries</strong> - X Total Deliveries <button data-toggle="modal" data-target="#newDeliveryModal" class="btn btn-sm btn-primary startDelivery">Start a Delivery</button></div>
+          <div class="card-header"><strong>Active Deliveries</strong> <span v-if="countOfActiveJobs">- {{countOfActiveJobs}} Total Deliveries</span> <button data-toggle="modal" data-target="#newDeliveryModal" class="btn btn-sm btn-primary startDelivery">Start a Delivery</button></div>
           <div class="card-body">
             <div class="row">
               <div class="col" v-if="activeDeliveries.length">
@@ -102,7 +102,7 @@
     <div class="row">
       <div class="col-12">
         <div class="">
-          <div class="card-header"><strong>Completed Deliveries</strong> - X Total Deliveries</div>
+          <div class="card-header"><strong>Completed Deliveries</strong> <span v-if="countOfCompleteJobs">- {{countOfCompleteJobs}} Total Deliveries</span></div>
           <div class="card-body">
             <div class="row">
               <div class="col" v-if="completeDeliveries.length">
@@ -146,7 +146,7 @@
     <div class="row">
       <div class="col-12">
         <div class="">
-          <div class="card-header"><strong>Canceled Deliveries</strong> - X Total Deliveries</div>
+          <div class="card-header"><strong>Canceled Deliveries</strong> <span v-if="countOfCanceledJobs">- {{countOfCanceledJobs}} Total Deliveries</span></div>
           <div class="card-body">
             <div class="row">
               <div class="col" v-if="canceledDeliveries.length">
@@ -211,6 +211,17 @@ export default {
       countries: [],
       cities: [],
       companies: []
+    }
+  },
+  computed: {
+    countOfActiveJobs () {
+      return Object.keys(this.activeDeliveries).length
+    },
+    countOfCompleteJobs () {
+      return Object.keys(this.completeDeliveries).length
+    },
+    countOfCanceledJobs () {
+      return Object.keys(this.canceledDeliveries).length
     }
   },
   watch: {

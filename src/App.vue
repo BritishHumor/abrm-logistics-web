@@ -28,6 +28,9 @@
         <a href="/" v-on:click.prevent="goToPage('/')"><span class="icon"><i class="fal fa-tachometer-alt"></i></span>Dashboard</a>
         <!-- <div class="sidenav-spacer">Deliveries</div> -->
         <a  href="/deliveries" v-on:click.prevent="goToPage('/deliveries')"><span class="icon"><i class="fal fa-truck-container"></i></span>Deliveries</a>
+        <div class="sidenav-spacer">Information</div>
+        <a  href="/drivers" v-on:click.prevent="goToPage('/drivers')"><span class="icon"><i class="fal fa-users"></i></span>Drivers</a>
+        <a  href="/leaderboard" v-on:click.prevent="goToPage('/leaderboard')"><span class="icon"><i class="fal fa-list-ol"></i></span>Leaderboard</a>
         <div class="sidenav-spacer">Data</div>
         <a  href="/cargos" v-on:click.prevent="goToPage('/cargos')"><span class="icon"><i class="fal fa-box"></i></span>Cargo Types</a>
         <a  href="/countries" v-on:click.prevent="goToPage('/countries')"><span class="icon"><i class="fal fa-flag"></i></span>Countries</a>
