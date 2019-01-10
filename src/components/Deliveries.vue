@@ -109,7 +109,7 @@
                 <table class="table">
                   <thead>
                     <tr>
-                      <th>Cargo</th>
+                      <th colspan="2">Cargo</th>
                       <!-- <th>Weight (Tons)</th> -->
                       <!-- <th>Source Company</th> -->
                       <th>Source City</th>
@@ -122,6 +122,7 @@
                   </thead>
                   <tbody>
                     <tr v-for="delivery in completeDeliveries" :key="delivery.id">
+                      <td :style="'background-image: url(\'https://via.placeholder.com/100x100?text=[Placeholder]%20Cargo%20Image\');background-repeat: no-repeat;background-size:cover;background-position: center; '"></td>
                       <td>{{delivery.cargo.name}}</td>
                       <!-- <td>{{delivery.weight}}</td> -->
                       <!-- <td>{{delivery.origin_company.name}}</td> -->

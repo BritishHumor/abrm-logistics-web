@@ -16,8 +16,8 @@
             <div class="row">
               <div class="col cargo" v-for="type in cargoTypeOptions" :key="type.id" @click="selectCargo(type.id, type.name)">
                 <div class="card">
-                  <div :class="'card-body cargoSelection ' + ( ( type.selected ) ? 'selected' : '' )">
-                    {{type.name}}
+                  <div :class="'card-body cargoSelection ' + ( ( type.selected ) ? 'selected' : '' )" :style="'background-image: url(\'https://via.placeholder.com/500x500?text=[Placeholder]%20Cargo%20Image\');background-repeat: no-repeat;background-size:cover;background-position: center; '">
+                    <span style="background-color: rgba(0,0,0,0.5); padding: 5px; word-wrap: break-word;" v-html="type.name"></span>
                   </div>
                 </div>
               </div>
@@ -247,7 +247,7 @@ export default {
 <style>
 .cargo {
   --caroSelectionSize: 125px;
-  margin: 5px;
+  margin: 0px -10px 5px -10px;
   text-align: center;
   /* height: var(--caroSelectionSize);
   width: var(--caroSelectionSize); */
